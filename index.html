@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật Kiều Trang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-text {
+            font-size: 3em;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInScale 1s ease;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .click-prompt {
+            font-size: 1.5em;
+            color: #ffd700;
+            padding: 15px 40px;
+            border: 3px solid #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .click-prompt:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .main-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            padding: 20px;
+        }
+
+        .main-content.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .birthday-container {
+            max-width: 900px;
+            margin: 50px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .name-title {
+            font-size: 4em;
+            color: #ffd700;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wish-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wish-text {
+            font-size: 1.4em;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cake {
+            font-size: 5em;
+            margin: 30px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .balloon {
+            position: fixed;
+            bottom: -150px;
+            font-size: 3em;
+            animation: floatUp 8s ease-in infinite;
+            z-index: 998;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -150px;
+                transform: translateX(0) rotate(0deg);
+            }
+            50% {
+                transform: translateX(50px) rotate(10deg);
+            }
+            100% {
+                bottom: 120vh;
+                transform: translateX(-50px) rotate(-10deg);
+            }
+        }
+
+        .floating-image {
+            position: fixed;
+            bottom: -200px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            animation: floatUpImage 10s ease-in infinite;
+            z-index: 998;
+            object-fit: cover;
+        }
+
+        @keyframes floatUpImage {
+            0% {
+                bottom: -200px;
+                transform: translateX(0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(80px) rotate(180deg) scale(1.1);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 120vh;
+                transform: translateX(-80px) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .star {
+            position: fixed;
+            color: #ffd700;
+            font-size: 1.5em;
+            animation: twinkle 2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 997;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall linear infinite;
+            z-index: 996;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.3em;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1.2s ease;
+        }
+
+        .heart {
+            display: inline-block;
+            color: #ff4757;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-text">
+            🎉 Pino Chúc Mừng Sinh Nhật 🎉
+        </div>
+        <div class="click-prompt" id="clickPrompt">
+            ✨ BẤM VÀO ✨
+        </div>
+    </div>
+
+    <audio id="birthdayMusic" loop>
+        <source src="pino.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="main-content" id="mainContent">
+        <div class="birthday-container">
+            <h1 class="name-title">Kiều Trang</h1>
+            
+            <div class="cake">🎂</div>
+
+            <div class="wish-card">
+                <div class="wish-text">
+                    <span class="heart">💝</span> Chúc mừng sinh nhật bạn thân yêu! <span class="heart">💝</span>
+                </div>
+                <div class="wish-text">
+                    Chúc bạn một tuổi mới tràn đầy niềm vui, hạnh phúc và thành công!
+                    Mong rằng mọi ước mơ của bạn sẽ trở thành hiện thực.
+                </div>
+            </div>
+
+            <div class="message-box">
+                🌟 Tuổi mới thật nhiều sức khỏe, nhiều may mắn và nhiều tình yêu thương! 🌟
+            </div>
+
+            <div class="wish-card">
+                <div class="wish-text">
+                   Chúc bạn đỗ NV1 nhaa!!!
+                </div>
+                <div class="wish-text">
+                    
+                </div>
+            </div>
+
+            <div class="message-box">
+                ✨ Sinh nhật vui vẻ! Hãy tạo nên những kỷ niệm đẹp trong năm mới này! ✨
+            </div>
+
+            <div class="wish-card">
+                <div class="wish-text">
+                    Chúc bạn luôn xinh đẹp, thông minh và thành công trong mọi lĩnh vực!
+                    <br>
+                    <span class="heart">❤️</span> Mãi mãi là người bạn tuyệt vời nhất! <span class="heart">❤️</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let fireworkInterval;
+        let balloonInterval;
+        let confettiCreated = false;
+
+        document.getElementById('clickPrompt').addEventListener('click', function() {
+            document.getElementById('introScreen').classList.add('hide');
+            
+            // Phát nhạc
+            const music = document.getElementById('birthdayMusic');
+            music.play().catch(function(error) {
+                console.log('Không thể tự động phát nhạc:', error);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('mainContent').classList.add('show');
+                startCelebration();
+            }, 800);
+        });
+
+        function startCelebration() {
+            createStars();
+            createConfetti();
+            startFireworks();
+            startBalloons();
+        }
+
+        function createStars() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.textContent = '⭐';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(star);
+                }, i * 100);
+            }
+        }
+
+        function createConfetti() {
+            if (confettiCreated) return;
+            confettiCreated = true;
+            
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#00d2d3'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                }, i * 50);
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#00d2d3', '#ffd700'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle';
+                particle.style.backgroundColor = color;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const distance = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+
+        function startFireworks() {
+            fireworkInterval = setInterval(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (window.innerHeight * 0.6);
+                createFirework(x, y);
+            }, 800);
+        }
+
+        function startBalloons() {
+            const balloonEmojis = ['🎈', '🎉', '🎊', '🎁'];
+            
+            balloonInterval = setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.textContent = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+                balloon.style.left = Math.random() * 90 + '%';
+                balloon.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                document.body.appendChild(balloon);
+                
+                setTimeout(() => {
+                    balloon.remove();
+                }, 8000);
+            }, 1500);
+        }
+
+        function startFloatingImages() {
+            const imageUrls = [
+                'pi1.jpg', // Thay thế bằng URL ảnh thật
+                'pi2.jpg', // Thay thế bằng URL ảnh thật
+                'pi3.jpg'  // Thay thế bằng URL ảnh thật
+            ];
+            
+            setInterval(() => {
+                const img = document.createElement('img');
+                img.className = 'floating-image';
+                img.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+                img.alt = 'Birthday Image';
+                img.style.left = Math.random() * 85 + '%';
+                img.style.animationDuration = (Math.random() * 4 + 8) + 's';
+                img.style.animationDelay = Math.random() * 2 + 's';
+                
+                // Xử lý lỗi nếu ảnh không tải được
+                img.onerror = function() {
+                    this.style.display = 'none';
+                };
+                
+                document.body.appendChild(img);
+                
+                setTimeout(() => {
+                    img.remove();
+                }, 12000);
+            }, 2500);
+        }
+
+        // Gọi hàm khi bắt đầu celebration
+        startFloatingImages();
+    </script>
+</body>
+</html>
